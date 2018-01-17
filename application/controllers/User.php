@@ -5,6 +5,15 @@ class User extends CI_Controller {
 
 
     public function index() {
+        
+    }
+
+
+    public function login() {
+        // Tjek om brugeren er logget ind
+        if( $this->session->get_userdata("LoggedIn")) {
+            header("Location: /team");
+        }
 
         if( $_SERVER["REQUEST_METHOD"] == "POST" ) {
 
@@ -58,7 +67,6 @@ class User extends CI_Controller {
         $this->load->view("user_login",$data);
         $this->load->view("footer",$data);
         #$this->load->view('welcome_message');
-
 
     }
 
