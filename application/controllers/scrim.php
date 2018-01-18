@@ -9,6 +9,10 @@ class Scrim extends CI_Controller {
 
     }
 
+    public function index() {
+        header("Location: /scrim/finder");
+    }
+
 
     public function finder() {
 
