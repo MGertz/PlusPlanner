@@ -11,7 +11,7 @@ class User extends CI_Controller {
 
     public function login() {
         // Tjek om brugeren er logget ind
-        if( $this->session->get_userdata("LoggedIn")) {
+        if( $this->session->has_userdata("LoggedIn") ) {
             header("Location: /team");
         }
 
@@ -66,8 +66,16 @@ class User extends CI_Controller {
         $this->load->view("header",$data);
         $this->load->view("user_login",$data);
         $this->load->view("footer",$data);
-        #$this->load->view('welcome_message');
 
+    }
+
+
+    public function logout() {
+        $unset = array("UserID","Admin","LoggedIn");
+
+        $this->session->unset_userdata($unset);
+
+        header("Location: /");
     }
 
 
