@@ -43,7 +43,7 @@
             <a class="nav-link" href="#">Mail</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/home/index">Logout</a>
+            <a class="nav-link" href="/user/logout">Logout</a>
           </li>
         </ul>
 

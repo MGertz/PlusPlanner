@@ -3,11 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Scrim extends CI_Controller {
 
-    public function __construct() {
-
-
-
-    }
+  
 
     public function index() {
         header("Location: /scrim/finder");
@@ -15,7 +11,10 @@ class Scrim extends CI_Controller {
 
 
     public function finder() {
-
+        $data = array("sitetitle" => "PlusPlanner - Scrim Finder");
+        $this->load->view("header", $data);
+        $this->load->view("scrim/finder");
+        $this->load->view("footer");
 
     }
 
