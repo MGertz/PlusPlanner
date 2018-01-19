@@ -22,9 +22,9 @@ class User extends CI_Controller {
             $password = $_POST["Password"];
 
 
-            $this->load->model("user_model");
+            $this->load->model("User_model");
 
-            $user = $this->user_model->get_user_by_email($email);
+            $user = $this->User_model->get_user_by_email($email);
 
             if( $user ) {
 
