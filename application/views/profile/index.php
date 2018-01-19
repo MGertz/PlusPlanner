@@ -1,5 +1,5 @@
 <div class="container box-outer">
 
-Scrim Finder page
+Profile Index page
 
 </div>

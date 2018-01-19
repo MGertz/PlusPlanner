@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Scrim extends CI_Controller {
+class profile extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
@@ -14,36 +14,13 @@ class Scrim extends CI_Controller {
     }
 
 
+
     public function index() {
-        header("Location: /scrim/finder");
-    }
-
-
-    public function finder() {
-        $data = array("sitetitle" => "PlusPlanner - Scrim Finder");
+        $data = array("sitetitle" => "PlusPlanner - Profile Page");
         $this->load->view("header", $data);
-        $this->load->view("scrim/finder");
+        $this->load->view("profile/index");
         $this->load->view("footer");
-
     }
 
-
-    public function create() {
-
-
-
-    }
-
-
-    public function view() {
-
-
-
-    }
-
-    public function delete() {
-
-
-    }
 
 }

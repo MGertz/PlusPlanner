@@ -31,6 +31,18 @@ class User_model extends CI_model {
         }
     }
 
+    /*
+     * Function checks weather a user is logged in or not.
+     * If Not, user is forwarded to /user/login
+     */
+    public function is_user_logged_in() {
+        // Tjek om brugeren er logget ind
+           if( $this->session->has_userdata("LoggedIn") == false ) {
+            header("Location: /user/login");
+            exit;
+        }
+    }
+
 
 
 

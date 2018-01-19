@@ -76,6 +76,7 @@ class User extends CI_Controller {
         $this->session->unset_userdata($unset);
 
         header("Location: /");
+        exit;
     }
 
 

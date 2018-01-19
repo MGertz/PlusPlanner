@@ -31,16 +31,13 @@
             <a class="nav-link" href="/">Forside</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/home/index">Scrim Finder</a>
+            <a class="nav-link" href="/scrim/finder">Scrim Finder</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Team Plan</a>
+            <a class="nav-link" href="/team/index">Team</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/home/index">Profile</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Mail</a>
+            <a class="nav-link" href="/profile">Profile</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/user/logout">Logout</a>
