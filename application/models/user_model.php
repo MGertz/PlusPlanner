@@ -32,6 +32,25 @@ class User_model extends CI_model {
     }
 
     /*
+     * This functions add user to database.
+     */
+    public function add_user($user = array() ) {
+
+        unset($user["Passconf"]);
+
+
+        $user["Password"] = password_hash($user["Password"],PASSWORD_BCRYPT);
+
+        $this->db->insert('Users',$user);
+
+        $id = $this->db->insert_id();
+
+        return $id;
+
+
+    }
+
+    /*
      * Function checks weather a user is logged in or not.
      * If Not, user is forwarded to /user/login
      */

@@ -12,6 +12,7 @@
                     <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Login</button>
                 </form>
 
+                <a href="/user/signup" class="forgot-password">Opret Bruger</a> | 
                 <a href="#" class="forgot-password">Forgot Password</a>
             </div>
         </div>
