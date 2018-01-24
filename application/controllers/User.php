@@ -114,6 +114,14 @@ class User extends CI_Controller {
                 $this->load->view("user/signup_ok",$data);
                 $this->load->view("footer",$data);
 
+            } else {
+                $data["sitetitle"] = "Signup";
+                $data["post"] = $post;
+        
+                $this->load->view("header",$data);
+                $this->load->view("user/signup",$data);
+                $this->load->view("footer",$data);
+        
             }
 		} else {
 
@@ -123,8 +131,8 @@ class User extends CI_Controller {
             $this->load->view("header",$data);
             $this->load->view("user/signup",$data);
             $this->load->view("footer",$data);
-    
         }
+        
 
 	}
 
