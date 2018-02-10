@@ -62,7 +62,17 @@ class User_model extends CI_model {
         }
     }
 
-
+    /*
+     * Function to get UserID from the user whos logged in.
+     * If no user is logged in, it will return false.
+     */
+    public function get_userid() {
+        if( $this->session->has_userdata("UserID") == false ) {
+            return false;
+        } else {
+            return $this->session->get_userdata("UserID");
+        }
+    }
 
 
 
