@@ -34,7 +34,7 @@ class Team extends CI_Controller {
     public function view() {
         $data = array("sitetitle" => "PlusPlanner - Team Page");
         $this->load->view("header", $data);
-        $this->load->view("team/index");
+        $this->load->view("team/view");
         $this->load->view("footer");
     }
 
