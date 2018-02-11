@@ -70,11 +70,19 @@ class User_model extends CI_model {
         if( $this->session->has_userdata("UserID") == false ) {
             return false;
         } else {
-            return $this->session->get_userdata("UserID");
+            return $this->session->userdata("UserID");
         }
     }
 
+    
+    public function get_user_by_id($id = "")  {
+        if( $id == "" ) {
+            $id = $this->get_userid();
+        }
 
+        return $id;
+
+    }
 
 
 
