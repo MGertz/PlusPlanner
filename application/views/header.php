@@ -40,7 +40,6 @@
 	</head>
 	<body>
 
-
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="container">
 		<a class="navbar-brand" href="#">PlusPlanner</a>
@@ -48,25 +47,12 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-
 				<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-					<li class="nav-item active">
-						<a class="nav-link" href="/">Forside</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="/scrim/finder">Scrim Finder</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="/team/index">Team</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="/profile">Profile</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="/user/logout">Logout</a>
-					</li>
+					<?php
+					$this->navbar->build();
+					?>
 				</ul>
-
 			</div>
 		</div>
-</nav>
+	</nav>
+
