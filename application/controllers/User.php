@@ -42,7 +42,7 @@ class User extends CI_Controller {
 
 					$this->session->set_userdata($new_session);
 
-					header("Location: /team/index");
+					header("Location: /OverWatch/TeamView");
 
 
 

@@ -57,7 +57,7 @@ class User_model extends CI_model {
     public function is_user_logged_in() {
         // Tjek om brugeren er logget ind
            if( $this->session->has_userdata("LoggedIn") == false ) {
-            header("Location: /user/login");
+            header("Location: /User/Login");
             exit;
         }
     }

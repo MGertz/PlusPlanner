@@ -15,6 +15,12 @@ class OverWatch extends CI_Controller {
 
 	}
 
+	/* Function is used to make sure / is catched and directed to /OverWatch/ProfileView */
+	public function index() {
+		header("Location: /OverWatch/ProfileView");
+		exit;
+	}
+
 	/* PORTED */
 	public function TeamView($id = 0) {
 		$data = array("sitetitle" => "PlusPlanner - Team Page");
