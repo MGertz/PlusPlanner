@@ -47,12 +47,25 @@ class OverwatchModel extends CI_model {
 		$profile["User_ID"] = $this->user_model->get_userid();
 
 		$this->db->insert( "Overwatch_Profile" , $profile );
-		
-
-
-
 	}
 
+
+	public function add_team($teamname) {
+		
+		$team = array("Name" => $teamname, "Created" => date("Y-m-d H:i:s"));
+
+        $this->db->insert('Overwatch_Teams',$team);
+
+		$id = $this->db->insert_id();
+		
+
+		// Skriv koden til indsætter bruger og teamID til Overwatch_Team_Profile
+		$profileID = $this->get_profileid_by_userid();
+		$insert = array("TeamID" => $id , "PlayerID" => $profileID, "Role" => '1', "Sort" => 1, "DateAdded" => date("Y-m-d H:i:s"));
+		$this->db->insert("Overwatch_Team_Profile", $insert);
+		
+        return $id;
+	}
 
 
 

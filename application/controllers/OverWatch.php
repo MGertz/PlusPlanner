@@ -35,6 +35,36 @@ class OverWatch extends CI_Controller {
 
 	public function TeamCreate() {
 
+		$post = array("TeamName" => "");
+		$data = array("sitetitle" => "PlusPlanner - Team Create");
+
+
+		if( $_SERVER["REQUEST_METHOD"] == "POST" ) {
+			$post = array_merge($post , $_POST);
+
+			$this->load->library("form_validation");
+
+			// Setup validation checks
+			$this->form_validation->set_rules("TeamName", "Holdnavn" , "required|max_length[255]|is_unique[Overwatch_Teams.Name]");
+
+			if( $this->form_validation->run() ) {
+				$teamid = $this->OverwatchModel->add_team($post["TeamName"]);
+				header("Location: /OverWatch/TeamView?id=".$teamid);
+				exit;
+			} else {
+				$data["post"] = $post;
+				$this->load->view("header",$data);
+				$this->load->view("Overwatch/TeamCreate",$data);
+				$this->load->view("footer");
+			}
+
+
+		} else {
+			$data["post"] = $post;
+			$this->load->view("header",$data);
+			$this->load->view("Overwatch/TeamCreate",$data);
+			$this->load->view("footer");
+		}
 	}
 
 	/* PORTED */
