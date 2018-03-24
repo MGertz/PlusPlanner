@@ -54,7 +54,7 @@ class OverWatch extends CI_Controller {
 			} else {
 				$data["post"] = $post;
 				$this->load->view("header",$data);
-				$this->load->view("Overwatch/TeamCreate",$data);
+				$this->load->view("OverWatch/TeamCreate",$data);
 				$this->load->view("footer");
 			}
 
@@ -62,7 +62,7 @@ class OverWatch extends CI_Controller {
 		} else {
 			$data["post"] = $post;
 			$this->load->view("header",$data);
-			$this->load->view("Overwatch/TeamCreate",$data);
+			$this->load->view("OverWatch/TeamCreate",$data);
 			$this->load->view("footer");
 		}
 	}
