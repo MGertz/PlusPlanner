@@ -22,11 +22,45 @@ class OverWatch extends CI_Controller {
 	}
 
 	/* PORTED */
-	public function TeamView($id = 0) {
-		$data = array("sitetitle" => "PlusPlanner - Team Page");
+	public function TeamView($id=0) {
+		if( $id == 0 ) {
+			$teamid = $this->OverwatchModel->get_teamid_by_profileid();
+
+			if( $teamid != false ) {
+				header("Location: /Overwatch/TeamView/".$teamid);
+				exit;
+			} else {
+				echo "Brugeren er ikke medlem af et team endnu";
+				exit;
+			}
+		}
+
+		$team = $this->OverwatchModel->getteam($id);
+
+		if( $team == false ) {
+			header("Location: /OverWatch/TeamCreate");
+			exit;
+		}
+
+
+
+
+		$data = array("sitetitle" => "PlusPlanner - Team Page", "team" => $team);
         $this->load->view("header", $data);
         $this->load->view("OverWatch/TeamView");
         $this->load->view("footer");
+	}
+
+	public function TeamEdit() {
+		if( $_SERVER["REQUEST_METHOD"] == "POST" ) {
+			echo "<pre>";
+			print_r($_POST);
+
+		} else {
+			header("Location: /OverWatch/Teamview");
+			exit;
+		}
+
 	}
 
 	public function TeamSearch() {

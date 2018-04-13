@@ -18,9 +18,9 @@ class OverwatchModel extends CI_model {
 
 
 
-	public function get_profileid_by_userid($userid = "") {
+	public function get_profileid_by_userid($userid = 0) {
 		
-		if ( $userid == "" ) {
+		if ( $userid == 0 ) {
 			$userid = $this->user_model->get_userid();
 		}
 
@@ -30,7 +30,7 @@ class OverwatchModel extends CI_model {
 		if( $query->num_rows() != 0 ) {
 			
 			foreach( $query->result() as $row) {
-				$profileID = $row->ID;
+				$profileID = $row->ProfileID;
 			}
 		} else {
 			$profileID = false;
@@ -51,25 +51,135 @@ class OverwatchModel extends CI_model {
 
 
 	public function add_team($teamname) {
-		
-		$team = array("Name" => $teamname, "Created" => date("Y-m-d H:i:s"));
+		// Hent profilID på denne bruger
+		$profileID = $this->get_profileid_by_userid();
 
+
+		// Opret holdet i databasen
+		$team = array("Name" => $teamname, "Created" => date("Y-m-d H:i:s"), "CreatedBy" => $profileID, "Owner" => $profileID);
         $this->db->insert('Overwatch_Teams',$team);
-
 		$id = $this->db->insert_id();
 		
 
-		// Skriv koden til indsætter bruger og teamID til Overwatch_Team_Profile
-		$profileID = $this->get_profileid_by_userid();
-		$insert = array("TeamID" => $id , "PlayerID" => $profileID, "Role" => '1', "Sort" => 1, "DateAdded" => date("Y-m-d H:i:s"));
+		// Her indsættes profilen som oprettede holdet som spiller på holdet, og han gives rettigheder til at redigere holdet
+		$insert = array(
+				"TeamID" => $id,
+				"ProfileID" => $profileID,
+				"Trainer" => "true",
+				"Player" => "false",
+				"Substitute" => "false",
+				"Editor" => "true",
+				"DateAdded" => date("Y-m-d H:i:s"),
+				"AddedBy" => $profileID,
+				"Sort" => 1
+		);
 		$this->db->insert("Overwatch_Team_Profile", $insert);
 		
+
+		// Returner ID på dette hold.
         return $id;
 	}
 
 
+	public function getteam( $id = 0 ) {
+
+		$sql = 'SELECT * FROM `Overwatch_Teams` WHERE `id` = '.$id;
+		$query = $this->db->query($sql);
 
 
+		if( $query->num_rows() != 0 ) {
+			foreach( $query->result() as $row ) {
+				$team["Name"] = $row->Name;
+				$team["Description"] = $row->Description;
+				$team["TeamID"] = $row->ID;
+			}
+		} else {
+			return false;
+			
+		}
+
+
+
+		/* Koden som henter trænere til holdet */
+		$sql = "SELECT * FROM `Overwatch_Team_Profile` INNER JOIN `Overwatch_Profile` on `Overwatch_Team_Profile`.`ProfileID` = `Overwatch_Profile`.`ProfileID` WHERE `TeamID` = '".$id."' AND `Trainer` = true ORDER BY `Sort`";
+	
+		$query = $this->db->query($sql);
+
+		$arrayline = 0;
+
+		if( $query->num_rows() != 0 ) {
+			foreach( $query->result() as $row ) {
+
+				if( $row->Avatar == "" ) {
+					$avatar = "/images/default-avatar.png";
+				} else {
+					$avatar = $row->Avatar;
+				}
+
+				$team["trainers"][$arrayline] = array(
+					"BattleTag" => $row->BattleTag,
+					"ProfileID" => $row->ProfileID,
+					"Class" => "Trainer",
+					"Avatar" => $avatar,				
+					"Editor" => $row->Editor,
+					"Badge" => 4,
+					"SR" => $row->SR
+				);
+				$arrayline++;
+			}
+		}
+		
+
+		// Nulstil array listen
+		$arrayline = 0;
+		/* Koden som henter spillere til holdet */
+		$sql = "SELECT * FROM `Overwatch_Team_Profile` INNER JOIN `Overwatch_Profile` on `Overwatch_Team_Profile`.`ProfileID` = `Overwatch_Profile`.`ProfileID` WHERE `TeamID` = '".$id."' AND `Player` = true ORDER BY `Sort`";
+		$query = $this->db->query($sql);
+
+		$trainerline = 0;
+
+		if( $query->num_rows() != 0 ) {
+			foreach( $query->result() as $row ) {
+
+				if( $row->Avatar == "" ) {
+					$avatar = "https://robohash.org/".$row->BattleTag.".png";
+				} else {
+					$avatar = $row->Avatar;
+				}
+
+				$team["players"][$arrayline] = array(
+					"BattleTag" => $row->BattleTag,
+					"ProfileID" => $row->ProfileID,
+					"Class" => "TANK (ikke fra db)",
+					"Avatar" => $avatar,
+					"Editor" => $row->Editor,
+					"Badge" => 4,
+					"SR" => $row->SR
+				);
+				$arrayline++;
+			}
+		}
+
+		return $team;
+	}
+
+	public function get_teamid_by_profileid($profileid = 0 ) {
+		if( $profileid == 0 ) {
+			$profileid = $this->get_profileid_by_userid();
+		}
+		$query = $this->db->query("SELECT * FROM `Overwatch_Team_Profile` WHERE `ProfileID` = '".$profileid."' LIMIT 1");
+
+		if( $query->num_rows() != 0 ) {
+			foreach( $query->result() as $row ) {
+				$teamid = $row->TeamID;
+			}
+		} else {
+			$teamid = false;
+		}
+
+		return $teamid;
+
+	}
 
 
 
