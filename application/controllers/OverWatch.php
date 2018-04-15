@@ -27,7 +27,7 @@ class OverWatch extends CI_Controller {
 			$teamid = $this->OverwatchModel->get_teamid_by_profileid();
 
 			if( $teamid != false ) {
-				header("Location: /Overwatch/TeamView/".$teamid);
+				header("Location: /OverWatch/TeamView/".$teamid);
 				exit;
 			} else {
 				echo "Brugeren er ikke medlem af et team endnu";
