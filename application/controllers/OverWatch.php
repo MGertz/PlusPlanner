@@ -55,6 +55,97 @@ class OverWatch extends CI_Controller {
 		if( $_SERVER["REQUEST_METHOD"] == "POST" ) {
 			echo "<pre>";
 			print_r($_POST);
+			
+
+			$post = $_POST;
+
+			$function = $post["function"];
+
+
+			/*
+			 * Denne del af funktionen tilføjer en spiller til holdet
+			 */
+			if( $function == "addplayer") {
+				$BattleTag = $post["BattleTag"];
+
+				// Hent profil data på den profil som skal tilmeldes holdet
+				$profile = $this->OverwatchModel->get_profile("BattleTag", $BattleTag );
+
+				// Tjek om spilleren allerede er medlem at holdet.
+
+
+
+				// Tilføj spilleren til holdet
+				$insert = array(
+					"ProfileID" => $profile["ProfileID"],
+					"TeamID" => $post["TeamID"],
+					"Player" => "true"
+
+				);
+				$this->OverwatchModel->add_player_to_team($insert);
+
+				header("Location: /OverWatch/TeamView/".$post["TeamID"]);
+				exit;
+
+			}
+
+
+
+			/*
+			 * Denne function redigerer en bruger på holdet
+			 */
+			if( $function == "EditMember") {
+				
+				$update = array(
+					"Class" => "Offense",
+					"Trainer" => "false",
+					"Player" => "false",
+					"Substitute" => "false",
+					"Editor" => "false"
+				);
+
+				$update["Editor"] = $post["Editor"];
+				$update["Class"] = $post["Class"];
+
+				if( $post["MemberType"] == "Player") {
+					$update["Player"] = "true";
+				}
+				if( $post["MemberType"] == "Trainer") {
+					$update["Trainer"] = "true";
+				}
+
+				
+
+
+				$this->OverwatchModel->update_team($post["TeamID"] , $post["ProfileID"] , $update);
+
+				header("Location: /OverWatch/TeamView/".$post["TeamID"]);
+				exit;
+
+			}
+
+
+
+
+			/*
+			 * Denne function sletter en bruger fra holdet
+			 */
+			if( $function == "DeleteMember") {
+				$teamid = $post["TeamID"];
+				$profileid = $post["ProfileID"];
+
+				$result = $this->OverwatchModel->delete_profile_from_team($post["TeamID"] , $post["ProfileID"]);
+
+				header("Location: /OverWatch/TeamView/".$post["TeamID"]);
+				exit;
+
+
+			}
+
+
+
+
+
 
 		} else {
 			header("Location: /OverWatch/Teamview");
@@ -187,6 +278,35 @@ class OverWatch extends CI_Controller {
 		}
 
 		
+	}
+
+
+	public function api_get_battletags($search = "") {
+		header('Content-Type: application/json');
+		if( strlen($search) <= 2 ) {
+			
+			echo "[]";
+		} else {
+				
+
+			$sql = "SELECT * FROM `Overwatch_Profile` WHERE `BattleTag` LIKE '%".$search."%' ORDER BY `Overwatch_Profile`.`BattleTag` ASC";
+			$query = $this->db->query($sql);
+
+			if( $query->num_rows() != 0 ) {
+
+				foreach( $query->result() as $row ) {
+					$option[] = $row->BattleTag;
+				}
+
+				#return $option;
+			} else {
+				$option[] = "";
+			}
+
+			
+			echo json_encode($option);
+		}
+
 	}
 
 

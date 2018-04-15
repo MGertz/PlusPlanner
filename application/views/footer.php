@@ -6,8 +6,9 @@
     
     
     
-    <script src="/js/plusplanner.js"></script>
     <script src="/js/ads.js"></script>
+    <script src="/js/plusplanner.js"></script>
+    
 
 
 
