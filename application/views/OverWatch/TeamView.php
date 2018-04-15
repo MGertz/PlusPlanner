@@ -101,7 +101,7 @@
 
 <!-- MODAL FOR EDITING TRAINERS IN THE TEAM -->
 <?php foreach( $team["trainers"] as $profile ) { ?>
-<form action="/Overwatch/TeamEdit" method="post">
+<form action="/OverWatch/TeamEdit" method="post">
 <input type="hidden" name="TeamID" value="<?php echo $team["TeamID"]; ?>">
 <input type="hidden" name="ProfileID" value="<?php echo $profile["ProfileID"]; ?>">
 
@@ -151,7 +151,7 @@
 
 <!-- MODALS FOR EDITING PLAYERS IN THE TEAM -->
 <?php foreach( $team["players"] as $profile ) { ?>
-<form action="/Overwatch/TeamEdit" method="post">
+<form action="/OverWatch/TeamEdit" method="post">
 <input type="hidden" name="TeamID" value="<?php echo $team["TeamID"]; ?>">
 <input type="hidden" name="ProfileID" value="<?php echo $profile["ProfileID"]; ?>">
 
