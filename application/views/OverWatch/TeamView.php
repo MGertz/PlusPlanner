@@ -210,7 +210,7 @@
 			</div>
 			<div class="modal-body">
 				<p>
-					<form action="/OverWatch/TeamEdit" method="post" target="_blank">
+					<form action="/OverWatch/TeamEdit" method="post">
 						<input type="hidden" name="function" value="addplayer">
 						<input type="hidden" name="TeamID" value="<?php echo $team["TeamID"]; ?>">
 						<input type="hidden" name="membertype" value="player">
