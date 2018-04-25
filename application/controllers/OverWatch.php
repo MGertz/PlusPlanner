@@ -201,7 +201,16 @@ class OverWatch extends CI_Controller {
 	}
 
 	public function ScrimCreate() {
+	}
 
+	public function Scrims() {
+
+
+
+		$data = array('sitetitle' => 'ScrimFinder');
+		$this->load->view('header');
+		$this->load->view("OverWatch/Scrims",$data);
+		$this->load->view('footer');
 	}
 
 	/* PORTED */
