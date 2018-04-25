@@ -275,6 +275,7 @@ class OverWatch extends CI_Controller {
 
 
 		} else {
+			
 			$data = array("sitetitle" => "PlusPlanner - Profile Create");
 			$data["post"] = $post;
 			$this->load->view("header", $data);
