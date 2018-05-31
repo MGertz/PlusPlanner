@@ -230,3 +230,12 @@ h6 { font-size: 14px; }
 .modal-header {
     border-bottom: 1px solid #000;
 }
+
+
+.table-plusplanner {
+    border: 1px solid;
+}
+.thead-plusplanner {
+    background-color: red;
+
+}
