@@ -3,8 +3,17 @@
 
 <div class="row">
 	<div class="container">
+		<form method="get">
 
-		<table class="table table-striped table-plusplanner">
+
+		</form>
+	</div>
+</div>
+
+<div class="row">
+	<div class="container">
+
+		<table class="table table-striped table-bordered table-plusplanner">
 			<thead class="thead-plusplanner">
 				<tr>
 					<th scope="col">Status</th>
