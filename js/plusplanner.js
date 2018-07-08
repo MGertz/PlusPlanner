@@ -43,4 +43,12 @@ $("#ModalBattleTag").keyup(function() {
 
 
 });
+
+
+$( function() {
+	$("#ScrimCreateDatePicker").datepicker();
+})
+
+
+
 console.log("It works");

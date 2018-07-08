@@ -201,6 +201,18 @@ class OverWatch extends CI_Controller {
 	}
 
 	public function ScrimCreate() {
+
+		$data = array("sitetitle" => "PlusPlanner - Scrim Opret");
+		
+		$this->load->view("header", $data);
+		$this->load->view("OverWatch/ScrimCreate", $data);
+		$this->load->view("footer", $data);
+
+
+
+
+
+
 	}
 
 	public function Scrims() {
