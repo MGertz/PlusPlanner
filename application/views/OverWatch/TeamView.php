@@ -1,7 +1,35 @@
 <div class="container box-outer">
 	<div class="row">
-		<div class="container">
-			<div class="col-sm-12"><h1><?php echo $team["Name"]; ?></h1></div>
+		<div class="col-sm-6"><h1><?php echo $team["Name"]; ?></h1></div>
+		<div class="col-sm-6 text-right">
+			<form method="post" action="/OverWatch/TeamView/0">
+				<input type="hidden" name="ChangeTeam" value="true">
+			
+				<div class="form-group row">
+					<label for="TeamID" class="col-sm-3 control-label text-right">Hold:</label>
+					<div class="col-sm-9">
+						<select name="TeamID" id="TeamID" class="formcontrol" onchange="this.form.submit()">
+						<?php
+
+
+							foreach($Teams as $row ) {
+								echo "<option value=\"".$row["TeamID"]."\"";
+								
+								if( $TeamID == $row["TeamID"] ) {
+									echo " selected";
+								}
+								
+								
+								echo ">".$row["Name"]."</option>";
+
+							}
+						?>
+						</select>
+					</div>
+				</div>
+			</form>
+				
+		
 		</div>
 	</div>
 	<div class="row">
@@ -17,7 +45,11 @@
 									<div class="col-sm-2 overwatch_teamview_profile_image"><img src="<?php echo $profile["Avatar"]; ?>"></div>
 									<div class="col-sm-6">
 										<div class="row overwatch_teamview_profile_name"><a href="/OverWatch/ProfileView/<?php echo $profile["ProfileID"];?>"><?php echo $profile["BattleTag"]; ?></a></div>
-										<div class="row overwatch_teamview_profile_class"><?php echo $profile["Class"]; ?>&nbsp;-&nbsp;<a href="#" data-toggle="modal" data-target="#ModalEditTrainer<?php echo $profile["ProfileID"]; ?>">Ret</a></div>
+										<div class="row overwatch_teamview_profile_class"><?php echo $profile["Class"]; ?>
+											<?php if($Editor == true ) { ?>
+												-&nbsp;<a href="#" data-toggle="modal" data-target="#ModalEditTrainer<?php echo $profile["ProfileID"]; ?>">Ret</a>
+											<?php } // ifend ?>
+										</div>
 									</div>
 									<div class="col-sm-2 overwatch_teamview_profile_rank"><img src="/images/overwatch/rank-<?php echo $profile["Badge"]; ?>.png"></div>
 									<div class="col-sm-2 overwatch_teamview_profile_sr"><?php echo $profile["SR"]; ?></div>
@@ -51,7 +83,14 @@
 								<div class="col-sm-2 overwatch_teamview_profile_image"><img src="<?php echo $profile["Avatar"]; ?>"></div>
 								<div class="col-sm-6">
 									<div class="row overwatch_teamview_profile_name"><a href="/OverWatch/ProfileView/<?php echo $profile["ProfileID"];?>"><?php echo $profile["BattleTag"]; ?></a></div>
-									<div class="row overwatch_teamview_profile_class"><?php echo $profile["Class"]; ?>&nbsp;-&nbsp;<a href="#" data-toggle="modal" data-target="#ModalEditPlayer<?php echo $profile["ProfileID"]; ?>">Rediger</a></div>
+									<div class="row overwatch_teamview_profile_class"><?php echo $profile["Class"]; ?>
+										<?php if($Editor == true ) { ?>
+											&nbsp;-&nbsp;<a href="#" data-toggle="modal" data-target="#ModalEditPlayer<?php echo $profile["ProfileID"]; ?>">Rediger</a>
+										<?php } // ifend ?>
+									</div>
+									
+									
+									
 								</div>
 								<div class="col-sm-2 overwatch_teamview_profile_rank"><img src="/images/overwatch/rank-<?php echo $profile["Badge"]; ?>.png"></div>
 								<div class="col-sm-2 overwatch_teamview_profile_sr"><?php echo $profile["SR"]; ?></div>
@@ -61,21 +100,23 @@
 					<?php $players++; ?>
 				<?php } ?>
 				
+				<?php if( $Editor == true ) { ?>
 
-				<?php if( $players <= 6 ) { ?>
-					<?php while( $players <= 6 ) { ?>
-						<div class="row">
-							<div class="container overwatch_teamview_profile_outer_empty">
-								<div class="row">
-									<div class="col-sm-8"><a href="#" data-toggle="modal" data-target="#modal_addplayer_4">Add new Player to team</a></div>
-									<div class="col-sm-4"></div>
+					<?php if( $players <= 6 ) { ?>
+						<?php while( $players <= 6 ) { ?>
+							<div class="row">
+								<div class="container overwatch_teamview_profile_outer_empty">
+									<div class="row">
+										<div class="col-sm-8"><a href="#" data-toggle="modal" data-target="#modal_addplayer_4">Add new Player to team</a></div>
+										<div class="col-sm-4"></div>
+									</div>
 								</div>
 							</div>
-						</div>
-					
-						<?php $players++; ?>
+						
+							<?php $players++; ?>
+						<?php } ?>
 					<?php } ?>
-				<?php } ?>
+				<?php } //IF FOR EDITOR SLUTTER HER ?>
 
 
 			</div>
@@ -84,8 +125,18 @@
 			<div class="col-lg-6">
 				<div class="container">
 					<h2>Beskrivelse af holdet:</h2>
-					<p><?php echo $team["Description"];?></p>
+					<p><?php echo nl2br($team["Description"]);?></p>
+					
+						
+					<?php if( $Editor == true ) { ?>
+						<a href="#" data-toggle="modal" data-target="#modal_edit_description">Rediger tekst</a>
+					<?php } ?>
+					
+					
+					
 				</div>
+
+
 
 			</div>
 
@@ -98,6 +149,9 @@
 	</div>
 
 </div>
+
+<?php if( $Editor == true ) { ?>
+
 
 <!-- MODAL FOR EDITING TRAINERS IN THE TEAM -->
 <?php foreach( $team["trainers"] as $profile ) { ?>
@@ -229,3 +283,40 @@
 	</div>
 </div>
 <!-- MODAL FOR ADDING PLAYER END -->
+
+
+
+<!-- MODAL FOR EDITING TEAM DESCRIPTION -->
+
+<form action="/OverWatch/TeamEdit" method="post">
+<input type="hidden" name="TeamID" value="<?php echo $team["TeamID"]; ?>">
+
+	<div class="modal fade" id="modal_edit_description">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3>Rediger beskrivelse</h3>
+				</div>
+				<div class="modal-body">
+					<p>
+						<textarea name="description" class="form-control" rows="10"><?php echo $team["Description"];?></textarea>
+					</p>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" name="function" value="EditDescription" class="btn btn-primary">Gem</button>
+					</form>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Luk</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</form>
+<!-- MODAL FOR EDITING TEAM DESCRIPTION END -->
+
+
+
+
+
+
+<?php } // IF STATEMENT FOR EDITOR SLUTTER HER ?>

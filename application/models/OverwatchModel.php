@@ -139,13 +139,30 @@ class OverwatchModel extends CI_model {
 					$membertype = "Player";
 				}
 
+				// Find det rigtige badge
+				if( $row->SR <= "1499" ) {
+					$badge = "1";
+				} elseif( $row->SR >= "1500" && $row->SR <= "1999") {
+					$badge = "2";
+				} elseif( $row->SR >= "2000" && $row->SR <= "2499") {
+					$badge = "3";
+				} elseif( $row->SR >= "2500" && $row->SR <= "2999") {
+					$badge = "4";
+				} elseif( $row->SR >= "3000" && $row->SR <= "3499") {
+					$badge = "5";
+				} elseif( $row->SR >= "3500" && $row->SR <= "3999") {
+					$badge = "6";
+				} elseif( $row->SR >= "4000") {
+					$badge = "7";
+				}
+
 				$team["trainers"][$arrayline] = array(
 					"BattleTag" => $row->BattleTag,
 					"ProfileID" => $row->ProfileID,
 					"Class" => $row->Class,
 					"Avatar" => $avatar,				
 					"Editor" => $row->Editor,
-					"Badge" => 4,
+					"Badge" => $badge,
 					"SR" => $row->SR,
 					"MemberType" => $membertype
 				);
@@ -179,13 +196,30 @@ class OverwatchModel extends CI_model {
 					$membertype = "Player";
 				}
 
+				// Find det rigtige badge
+				if( $row->SR <= "1499" ) {
+					$badge = "1";
+				} elseif( $row->SR >= "1500" && $row->SR <= "1999") {
+					$badge = "2";
+				} elseif( $row->SR >= "2000" && $row->SR <= "2499") {
+					$badge = "3";
+				} elseif( $row->SR >= "2500" && $row->SR <= "2999") {
+					$badge = "4";
+				} elseif( $row->SR >= "3000" && $row->SR <= "3499") {
+					$badge = "5";
+				} elseif( $row->SR >= "3500" && $row->SR <= "3999") {
+					$badge = "6";
+				} elseif( $row->SR >= "4000") {
+					$badge = "7";
+				}
+
 				$team["players"][$arrayline] = array(
 					"BattleTag" => $row->BattleTag,
 					"ProfileID" => $row->ProfileID,
 					"Class" => $row->Class,
 					"Avatar" => $avatar,
 					"Editor" => $row->Editor,
-					"Badge" => 4,
+					"Badge" => $badge,
 					"SR" => $row->SR,
 					"MemberType" => $membertype
 				);

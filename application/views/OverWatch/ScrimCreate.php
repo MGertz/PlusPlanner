@@ -20,34 +20,36 @@
 					}
 
 				}
-				
-
-				Start Tid
-				Spille tid i timer
-				SR Minimum
-				SR Max
-
-				Kommentar
-
-
-
-
-
-
 				*/
 			?>
 		
 		
 			<form method="post">
 			
-			<div class="form-group row">
-					<label for="BattleTag" class="col-sm-3 control-label">Start tid:</label>
+				<div class="form-group row">
+					<label for="TeamID" class="col-sm-3 control-label">Hold:</label>
 					<div class="col-sm-9">
-						<input type="text" id="ScrimCreateDatePicker" name="Date" placeholder="YYYY-MM-DD" value="" class="form-control" autofocus>
+						<select name="TeamID" id="TeamID" class="formcontrol">
+						<?php
+
+							print_r($teams);
+
+							foreach($teams as $key => $val ) {
+								echo "<option value=\"".$key."\">".$val."</option>";
+
+							}
+						?>
+						</select>
 					</div>
 				</div>
 				<div class="form-group row">
-					<label for="BattleTag" class="col-sm-3 control-label">Spille tid:</label>
+					<label for="starttime" class="col-sm-3 control-label">Start tid:</label>
+					<div class="col-sm-9">
+						<input type="text" id="ScrimCreateDatePicker" name="starttime" placeholder="YYYY-MM-DD HH:II:SS" value="" class="form-control" autofocus>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="playtime" class="col-sm-3 control-label">Spille tid:</label>
 					<div class="col-sm-9">
 						<select name="playtime" id="playtime" class="form-control">
 							<option value="1">1 time</option>
@@ -73,7 +75,7 @@
 					</div>
 				</div>
 				<div class="form-group row">
-					<label for="BattleTag" class="col-sm-3 control-label">SR minimum:</label>
+					<label for="SRmin" class="col-sm-3 control-label">SR minimum:</label>
 					<div class="col-sm-9">
 						<select id="SRmin" name="SRmin" class="form-control">
 							<option value="0" selected>0</option>
@@ -88,7 +90,7 @@
 					</div>
 				</div>
 				<div class="form-group row">
-					<label for="BattleTag" class="col-sm-3 control-label">Start tid:</label>
+					<label for="SRmax" class="col-sm-3 control-label">SR Maximum:</label>
 					<div class="col-sm-9">
 					<select id="SRmax" name="SRmax" class="form-control">
 							<option value="0">0</option>
@@ -103,9 +105,9 @@
 					</div>
 				</div>
 				<div class="form-group row">
-					<label for="BattleTag" class="col-sm-3 control-label">Start tid:</label>
+					<label for="comment" class="col-sm-3 control-label">Kommentar:</label>
 					<div class="col-sm-9">
-						<textarea name="comment" id="comment" placeholder="Skriv en kommentar" class="form-control"></textarea>
+						<textarea name="Comment" id="comment" placeholder="Skriv en kommentar" class="form-control"></textarea>
 					</div>
 				</div>
 				<div class="form-group">

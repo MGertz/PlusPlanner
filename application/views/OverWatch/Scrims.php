@@ -25,46 +25,24 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<th scope="row">Planned</th>
-					<td>Hold navn 1</td>
-					<td>Holdnavn 2</td>
-					<td>21:00 25/4-2018</td>
-					<td>00:00 26/4-2018</td>
-					
-				</tr>
-				<tr>
-					<td>Planned</td>
-					<td scope="row">Hold navn 1</th>
-					<td>Holdnavn 2</td>
-					<td>21:00 25/4-2018</td>
-					<td>00:00 26/4-2018</td>
-					
-				</tr>
-				<tr>
-					<td>Planned</td>
-					<td scope="row">Hold navn 1</th>
-					<td>Holdnavn 2</td>
-					<td>21:00 25/4-2018</td>
-					<td>00:00 26/4-2018</td>
-					
-				</tr>
-				<tr>
-					<td>Planned</td>
-					<td scope="row">Hold navn 1</th>
-					<td>Holdnavn 2</td>
-					<td>21:00 25/4-2018</td>
-					<td>00:00 26/4-2018</td>
-					
-				</tr>
-				<tr>
-					<td>Planned</td>
-					<td scope="row">Hold navn 1</th>
-					<td>Holdnavn 2</td>
-					<td>21:00 25/4-2018</td>
-					<td>00:00 26/4-2018</td>
-					
-				</tr>
+
+				<?php
+
+				foreach( $Scrims as $row ) {
+					echo "<tr>";
+
+						echo "<td>".$row["Status"]."</td>";
+						echo "<td>".$row["TeamName"]."</td>";
+						echo "<td>&nbsp;</td>";
+						echo "<td>".$row["Time_Start"]."</td>";
+						echo "<td>".$row["Time_End"]."</td>";
+							
+					echo "</tr>";
+				}
+
+
+
+				?>
 			</tbody>
 		</table>
 
