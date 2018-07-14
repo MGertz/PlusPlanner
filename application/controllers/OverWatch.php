@@ -226,7 +226,7 @@ class OverWatch extends CI_Controller {
 			$search = trim($_POST["search"]);
 			
 
-			header("Location: /Overwatch/TeamSearch/".$search);
+			header("Location: /OverWatch/TeamSearch/".$search);
 			exit;
 		}
 
@@ -252,7 +252,7 @@ class OverWatch extends CI_Controller {
 		$data["Teams"] = $teams;
 		$data["sitetitle"] = "Plusplanner - Team Search";
 		$this->load->view("header",$data);
-		$this->load->view("Overwatch/TeamSearch",$data);
+		$this->load->view("OverWatch/TeamSearch",$data);
 		$this->load->view("footer");
 
 	}
@@ -574,7 +574,7 @@ class OverWatch extends CI_Controller {
 			$search = trim($_POST["search"]);
 			
 
-			header("Location: /Overwatch/ProfileSearch/".$search);
+			header("Location: /OverWatch/ProfileSearch/".$search);
 			exit;
 		}
 
@@ -601,7 +601,7 @@ class OverWatch extends CI_Controller {
 		$data["Profiles"] = $profiles;
 		$data["sitetitle"] = "Plusplanner - Profile Search";
 		$this->load->view("header",$data);
-		$this->load->view("Overwatch/ProfileSearch",$data);
+		$this->load->view("OverWatch/ProfileSearch",$data);
 		$this->load->view("footer");
 	}
 
