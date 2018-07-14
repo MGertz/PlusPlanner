@@ -38,7 +38,7 @@
 				foreach( $Profiles as $Profile ) {
 					echo "<tr>";
 
-						echo "<td><a href='/Overwatch/ProfileView/".$Profile["ProfileID"]."'>vis</a></td>";
+						echo "<td><a href='/OverWatch/ProfileView/".$Profile["ProfileID"]."'>vis</a></td>";
 						echo "<td>".$Profile["BattleTag"]."</td>";
 						echo "<td>".$Profile["SR"]."</td>";
 

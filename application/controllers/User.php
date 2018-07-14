@@ -42,7 +42,16 @@ class User extends CI_Controller {
 
 					$this->session->set_userdata($new_session);
 
+
+					// Update LastLogin
+					$update = "UPDATE `Users` SET `LastLogin` = '".date("Y-m-d H:i:s")."' WHERE `Users`.`UserID` = '".$user["UserID"]."'";
+					$this->db->query($update);
+
+
+
+
 					header("Location: /OverWatch/TeamView");
+					exit;
 
 
 

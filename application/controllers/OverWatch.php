@@ -451,25 +451,121 @@ class OverWatch extends CI_Controller {
 
 	/* PORTED */
 	public function ProfileView($id = 0) {
-
-		$profileID = $this->OverwatchModel->get_profileid_by_userid();
+		// Tjek om der er valgt en bruger som skal vises.
+		if( $id == 0 ) {
+			if( $this->ProfileID == false ) {
+				header("Location: /OverWatch/ProfileCreate");
+				exit;
+			} else {
+				header("Location: /OverWatch/ProfileView/".$this->ProfileID);
+				exit;
+			}
+		}
 		
-		if( $profileID == false ) {
 
-			echo "ProfileID: ". $profileID;
-			header("Location: /OverWatch/ProfileCreate");
+		// Hent Overwatch Profile Info
+		$sql = "SELECT * FROM `Overwatch_Profile` WHERE `ProfileID` = '".$id."'";
+		$query = $this->db->query($sql);
+		if( $query->num_rows() != 0 ) {
+			foreach( $query->result() as $row ) {
+				$profile["BattleTag"] = $row->BattleTag;
+				$profile["SR"] = $row->SR;
+				$profile["Description"] = $row->Description;
+				$profile["UserID"] = $row->User_ID;
+
+				if( $row->Avatar == "" ) {
+					$profile["Avatar"] = "https://robohash.org/".$row->BattleTag.".png?size=500x500&set=set1";
+				} else {
+					$profile["Avatar"] = $row->Avatar;
+				}
+			}
+		} else {
+			// Hvis det profil id som er valgt ike findes i db, så sendes brugeren tilbage til sin egen side.
+			header("Location: /OverWatch/ProfileView");
 			exit;
+		}
+
+		// Hent User info
+		$sql = "SELECT * FROM `Users` WHERE `UserID` = '".$profile["UserID"]."'";
+		$query = $this->db->query($sql);
+		foreach( $query->result() as $row ) {
+			
+			$profile["Name"] = $row->Firstname." ".$row->Lastname;
+			$profile["Birthday"] = date("j. F Y", strtotime($row->Birthday));
+			if( $row->Gender == "M" ) {
+				$profile["Gender"] = "Dreng";
+			} else {
+				$profile["Gender"] = "Pige";
+			}
+			$profile["Country"] = $row->Country;
+
+			if( $row->LastLogin >= date("Y-m-d H:i:s", strtotime(' -15 minutes') ) ) {
+				$profile["Online"] = true;
+			} else {
+				$profile["Online"] = false;
+			}
+		}
+
+
+		// Hent Follow Me informations.
+		$sql = "SELECT * FROM `Users_Follow` WHERE `UserID` = '".$profile["UserID"]."'";
+		$query = $this->db->query($sql);
+		if( $query->num_rows() != 0 ) {
+			foreach( $query->result() as $row ) {
+				$profile["Follow"][$row->Channel] = $row->Link;
+			}
+		} else {
+			$profile["Follow"] = false;
 		}
 
 
 
+		// Tjek om brugeren må redigere denne profil. Det skal være hans egen.
+		if( $id == $this->ProfileID ) {
+			$profile["EditRights"] = true;
+		} else {
+			$profile["EditRights"] = false;
+		}
 
-		$data = array("sitetitle" => "PlusPlanner - Profile Page");
+		// Læg ProfilID med til frontend
+		$profile["ProfileID"] = $id;
+
+
+		$data["Profile"] = $profile;
+
+		$data["sitetitle"] = "PlusPlanner - Profile Page";
 		$this->load->view("header", $data);
 		$this->load->view("OverWatch/ProfileView");
 		$this->load->view("footer");
 
 		
+
+	}
+
+	public function ProfileEdit() {
+		if( $_SERVER["REQUEST_METHOD"] != "POST") {
+			header("Location: /OverWatch/ProfileView/".$this->ProfileID);
+			exit;
+		}
+
+		$function = $_POST["function"];
+
+		if( $function == "EditDescription" ) {
+			
+			$Description = $this->db->escape_str($_POST["Description"]);
+			$ProfileID = $this->db->escape_str($_POST["ProfileID"]);
+
+			$update = "UPDATE `Overwatch_Profile` SET `Description` = '".$Description."' WHERE `Overwatch_Profile`.`ProfileID` = '".$ProfileID."'";
+			$this->db->query($update);
+
+			header("Location: /OverWatch/ProfileView/".$ProfileID);
+			exit;
+
+
+
+
+
+		}
 
 	}
 

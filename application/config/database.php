@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'home.ringhus.dk',
-	'username' => 'plusplanner',
-	'password' => 'Hej1mand',
-	'database' => 'plusplanner',
+	'hostname' => '109.199.116.69',
+	'username' => 'ringhusd_pluspla',
+	'password' => 'T1xTGbXyo0Q0IM1S',
+	'database' => 'ringhusd_plusplanner',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
