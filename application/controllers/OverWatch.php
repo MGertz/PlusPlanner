@@ -99,10 +99,7 @@ class OverWatch extends CI_Controller {
 
 	public function TeamEdit() {
 		if( $_SERVER["REQUEST_METHOD"] == "POST" ) {
-			echo "<pre>";
-			print_r($_POST);
 			
-
 			$post = $_POST;
 
 			$function = $post["function"];
@@ -305,8 +302,8 @@ class OverWatch extends CI_Controller {
 	public function ScrimCreate() {
 		// TJek om der postes til siden, og lav så opret koden
 		if( $_SERVER["REQUEST_METHOD"] == "POST" ) {
-			echo "<pre>";
-			print_r($_POST);
+			#echo "<pre>";
+			#print_r($_POST);
 
 			$TeamID = $_POST["TeamID"];
 			$starttime = $_POST["starttime"];
