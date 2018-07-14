@@ -4,7 +4,7 @@
 <div class="row">
 	<div class="container">
 		
-		<form action="/Overwatch/TeamSearch/" method="post">
+		<form action="/OverWatch/TeamSearch/" method="post">
 				
 				
 				
