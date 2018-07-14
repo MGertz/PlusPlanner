@@ -38,7 +38,7 @@
 				foreach( $Teams as $Team ) {
 					echo "<tr>";
 
-						echo "<td><a href='/Overwatch/TeamView/".$Team["TeamID"]."'>vis</a></td>";
+						echo "<td><a href='/OverWatch/TeamView/".$Team["TeamID"]."'>vis</a></td>";
 						echo "<td>".$Team["Name"]."</td>";
 						echo "<td>&nbsp;</td>";
 							
