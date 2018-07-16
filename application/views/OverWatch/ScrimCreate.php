@@ -44,8 +44,10 @@
 				</div>
 				<div class="form-group row">
 					<label for="starttime" class="col-sm-3 control-label">Start tid:</label>
-					<div class="col-sm-9">
-						<input type="text" id="ScrimCreateDatePicker" name="starttime" placeholder="YYYY-MM-DD HH:II:SS" value="" class="form-control" autofocus>
+					<div class="col-sm-9 date  input-group">
+						<input type="text" id="ScrimCreateDatePicker" value="" placeholder="Vælg dato" class="form-control" autocomplete="off" readonly><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+						<input type="hidden" id="DatetimePickerHidden" name="StartTime" value="">
+						
 					</div>
 				</div>
 				<div class="form-group row">

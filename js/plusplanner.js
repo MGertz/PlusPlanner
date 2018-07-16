@@ -44,11 +44,33 @@ $("#ModalBattleTag").keyup(function() {
 
 });
 
-
+/*
 $( function() {
-	$("#ScrimCreateDatePicker").datepicker();
-})
+	$("#ScrimCreateDatePicker").datepicker({
+		format: "yyyy-mm-dd",
+		weekStart: 1,
+		language: "da",
+		daysOfWeekHighlighted: "0,6",
+		calendarWeeks: true,
+		autoclose: true
 
+	});
+})
+*/
+$( function() {
+	$("#ScrimCreateDatePicker").datetimepicker({
+		language: 'da',
+		format: "d. MM yyyy h:ii",
+		calendarWeeks: true,
+		weekStart: 1,
+		linkField: "DatetimePickerHidden",
+		linkFormat: "yyyy-mm-dd hh:ii:00",
+		autoclose: true
+
+	});
+
+
+})
 
 
 console.log("It works");

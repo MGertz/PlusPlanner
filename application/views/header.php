@@ -13,6 +13,10 @@
 		<!-- PlusPlanner CSS FIle -->
 		<link rel="stylesheet" href="/css/plusplanner.css">
 
+		<!-- Bootstrap DatePicker -->
+		<!-- <link rel="stylesheet" href="/css/bootstrap-datepicker3.css"> -->
+		<link rel="stylesheet" href="/css/bootstrap-datetimepicker.css">
+
 		<title><?php echo $sitetitle; ?></title>
 
 		

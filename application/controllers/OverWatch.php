@@ -305,8 +305,10 @@ class OverWatch extends CI_Controller {
 			#echo "<pre>";
 			#print_r($_POST);
 
+			
+
 			$TeamID = $_POST["TeamID"];
-			$starttime = $_POST["starttime"];
+			$starttime = $_POST["StartTime"];
 			$playtime = $_POST["playtime"];
 			$SRmax = $_POST["SRmax"];
 			$SRmin = $_POST["SRmin"];
@@ -409,7 +411,6 @@ class OverWatch extends CI_Controller {
 		$sql = "SELECT * FROM `Overwatch_Scrim` 
 				INNER JOIN `Overwatch_Scrim_Team` ON `Overwatch_Scrim_Team`.`Scrim_ID` = `Overwatch_Scrim`.`Scrim_ID`
 				WHERE `Time_End` >= '".date("Y-m-d H:i:s")."' AND `Overwatch_Scrim_Team`.`Status` = 'Owner'";
-		//echo $sql;
 		$query = $this->db->query($sql);
 
 		if( $query->num_rows() != 0 ) {
@@ -426,11 +427,11 @@ class OverWatch extends CI_Controller {
 
 
 				$scrims[] = array(
-					"Scrim_ID" => $row->Scrim_ID,
-					"Time_Start" => $row->Time_Start,
-					"Time_End" => $row->Time_End,
-					"Status" => $row->Status,
-					"TeamName" => $TeamName
+					"ScrimID" => $row->Scrim_ID,
+					"StartTime" => date("j. F Y H:i", strtotime($row->Time_Start) ),
+					"Status" => "",
+					"TeamName" => $TeamName,
+					"AverageSR" => $row2->AverageSR
 				);
 			}
 		}
@@ -444,6 +445,13 @@ class OverWatch extends CI_Controller {
 
 
 
+	}
+
+	public function ScrimView($ScrimID = 0 ) {
+		if( $ScrimID == 0 ) {
+			header("Location: /OverWatch/Scrims");
+			exit;
+		}
 	}
 
 	/* PORTED */
