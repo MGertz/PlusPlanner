@@ -82,13 +82,13 @@
 					
 					<?php if( $Profile["Follow"] != false ) { ?>
 						<?php if( isset( $Profile["Follow"]["Facebook"] ) ) { ?>
-							<a href="<?php echo $Profile["Follow"]["Facebook"];?>" target="_blank"><img src="http://home.ringhus.dk/plusplanner-files/social-icons/facebook.png" class="profile_social_icon"></a>
+							<a href="<?php echo $Profile["Follow"]["Facebook"];?>" target="_blank"><img src="/Images/SocialIcons/facebook.png" class="profile_social_icon"></a>
 						<?php } ?>
 						
 						<?php if( isset( $Profile["Follow"]["Facebook"] ) ) { ?>
-							<a href="<?php echo $Profile["Follow"]["YouTube"];?>" target="_blank"><img src="http://home.ringhus.dk/plusplanner-files/social-icons/youtube.png" class="profile_social_icon"></a>
+							<a href="<?php echo $Profile["Follow"]["YouTube"];?>" target="_blank"><img src="/Images/SocialIcons/youtube.png" class="profile_social_icon"></a>
 						<?php } ?>
-							<a href="/profile" target="_blank"><img src="http://home.ringhus.dk/plusplanner-files/social-icons/twitch.png" class="profile_social_icon"></a>
+							<a href="/profile" target="_blank"><img src="/Images/SocialIcons/twitch.png" class="profile_social_icon"></a>
 					<?php } else { ?>
 						<p class="small">Brugeren har ikke indtastet nogle follow me links.
 					<?php } ?>

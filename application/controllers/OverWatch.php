@@ -47,7 +47,7 @@ class OverWatch extends CI_Controller {
 				header("Location: /OverWatch/TeamView/".$TeamID);
 				exit;
 			} else {
-				echo "Brugeren er ikke medlem af et team endnu";
+				header("Location: /OverWatch/TeamSearch");
 				exit;
 			}
 		}
@@ -615,22 +615,55 @@ class OverWatch extends CI_Controller {
 
 	/* PORTED */
 	public function ProfileCreate() {
-
 		$post = array("BattleTag" => "");
 
+
 		if( $_SERVER["REQUEST_METHOD"] == "POST") {
-
-
-
 			$post = array_merge($post , $_POST );
+			$formError = false;
 
-			$this->load->library("form_validation");
+			$post["BattleTag"] = trim(strip_tags($post["BattleTag"]));
+			
+			#$this->load->library("form_validation");
 
-			// setup all validation checks
-			$this->form_validation->set_rules('BattleTag', 'BattleTag' , 'required|max_length[255]|is_unique[Overwatch_Profile.BattleTag]');
-            
-           if( $this->form_validation->run() ) {
-                $this->OverwatchModel->add_profile($post);
+
+			// Tjek om der allerede er en i databasen som hedder sådan.
+			$sql = "SELECT * FROM `Overwatch_Profile` WHERE `BattleTag` = '".$post["BattleTag"]."'";
+			$query = $this->db->query($sql);
+			if( $query->num_rows() == 1 ) {
+				$formError = true;
+				$formErrorMessage = "Brugeren findes allerede i systemet.";
+			}
+
+
+			// Tjek om brugeren findes i overwatch.
+			if( $formError == false ) {
+				$battletag = str_replace("#","-",$post["BattleTag"]);
+
+				$url = "https://ovrstat.com/stats/pc/eu/".$battletag;
+					
+				// Curl kald, henter info om brugeren
+				$ch = curl_init();
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+				curl_setopt($ch, CURLOPT_URL, $url); 
+				curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+				curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36');
+				$OverWatchStats = curl_exec($ch);
+				curl_close($ch);
+	
+				#$output = json_encode(json_decode($output), JSON_PRETTY_PRINT);
+				$OverWatchStats = json_decode($OverWatchStats, true);
+
+				// Tjek om brugeren findes via udtrækket
+				if( isset( $OverWatchStats["message"] ) && $OverWatchStats["message"] == "Player not found" ) {
+					#echo "Brugeren findes ikke";
+					$formError = true;
+					$formErrorMessage = "Brugeren findes ikke i Overwatch systemet, husk at skrive med store og små bokstaver";
+				}
+			}
+
+			if( $formError == false ) {
+                $this->OverwatchModel->add_profile($post,$OverWatchStats);
 
                 header("Location: /OverWatch/ProfileView");
                 exit;
@@ -638,7 +671,9 @@ class OverWatch extends CI_Controller {
 
             } else {
                 $data = array("sitetitle" => "PlusPlanner - Profile Create");
-                $data["post"] = $post;
+				$data["post"] = $post;
+				$data["formError"] = $formError;
+				$data["formErrorMessage"] = $formErrorMessage;
                 $this->load->view("header", $data);
                 $this->load->view("OverWatch/ProfileCreate", $data);
                 $this->load->view("footer");
@@ -653,13 +688,7 @@ class OverWatch extends CI_Controller {
 			$this->load->view("header", $data);
 			$this->load->view("OverWatch/ProfileCreate", $data);
 			$this->load->view("footer");
-
-
-
-
 		}
-
-		
 	}
 
 

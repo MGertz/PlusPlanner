@@ -47,10 +47,16 @@ class OverwatchModel extends CI_model {
 	/*
 	 *
 	 */ 
-	public function add_profile($profile) {
-
+	public function add_profile($BattleTag,$OverWatchStats) {
 
 		$profile["User_ID"] = $this->user_model->get_userid();
+		$profile["BattleTag"] = $BattleTag["BattleTag"];
+
+		$profile["Avatar"] = $OverWatchStats["icon"];
+		$profile["Level"] = $OverWatchStats["level"];
+		$profile["LevelIcon"] = $OverWatchStats["levelIcon"];
+		$profile["SR"] = $OverWatchStats["rating"];
+		$profile["Ratingicon"] = $OverWatchStats["ratingIcon"];
 
 		$this->db->insert( "Overwatch_Profile" , $profile );
 	}
