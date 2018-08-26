@@ -109,13 +109,14 @@ class User extends CI_Controller {
             $this->form_validation->set_rules('Email' , 'Email' , 'required|max_length[255]|valid_email|is_unique[Users.Email]');
             $this->form_validation->set_rules('Zipcode' , 'Post nummer' , 'required|numeric');
             $this->form_validation->set_rules('Gender' , 'Køn' , 'required');
-            $this->form_validation->set_rules('Birthday' , 'Fødselsdag' , 'required');
+			$this->form_validation->set_rules('Birthday' , 'Fødselsdag' , 'required');
+			$this->form_validation->set_rules('EULA' , 'Betingelser' , 'required');
 
             // run the rules compared to the rules
 			if( $this->form_validation->run() ) {
                 // Lav sql statement som opretter brugeren.
 
-                $insert_id = $this->User_model->add_user($post);
+				$insert_id = $this->User_model->add_user($post);
 
                 $data["sitetitle"] = "Signup OK";
         

@@ -37,6 +37,16 @@ class User_model extends CI_model {
     public function add_user($user = array() ) {
 
         unset($user["Passconf"]);
+        unset($user["EULA"]);
+
+
+        if( isset($user["Newsletter"]) && $user["Newsletter"] == true) {
+            $user["EmailSubscription"] = "true";
+        } else {
+            $user["EmailSubscription"] = "false";
+        }
+
+        $user["LastLogin"] = "0000-00-00 00:00:00";
 
 
         $user["Password"] = password_hash($user["Password"],PASSWORD_BCRYPT);

@@ -100,6 +100,26 @@
 						<input type="date" id="Birthday" name="Birthday" placeholder="" value="<?php echo $post['Birthday']; ?>" class="form-control">
 					</div>
 				</div>
+				
+				
+				<div class="form-group row">
+					<label for="Newsletter" class="col-sm-3 control-label">Nyhedsbrev</label>
+					<div class="col-sm-9">
+						<input type="checkbox" id="Newsletter" name="Newsletter" value="true" class="form-check-input form-control" checked>
+						
+					</div>
+				</div>
+
+
+
+				<div class="form-group row">
+					<label for="EULA" class="col-sm-3 control-label">Betingelser</label>
+					<div class="col-sm-9">
+					<input type="checkbox" id="EULA" name="EULA" value="true" class="form-check-input form-control">
+					<label class="form-check-label" for="EULA"><a href="#">Betingelser</a></label>
+
+					</div>
+				</div>
 
 
 
